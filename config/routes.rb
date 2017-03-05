@@ -8,4 +8,14 @@ Homeland::Wiki::Engine.routes.draw do
       get :comments
     end
   end
+
+  namespace :admin do
+    resources :pages do
+      resources :versions, controller: :page_versions do
+        member do
+          post :revert
+        end
+      end
+    end
+  end
 end

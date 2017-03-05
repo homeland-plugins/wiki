@@ -111,7 +111,7 @@ PLATFORMS
 
 DEPENDENCIES
   homeland-wiki!
+  rspec
 
 BUNDLED WITH
    1.13.7
-

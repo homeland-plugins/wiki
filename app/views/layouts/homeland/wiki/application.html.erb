@@ -1,0 +1,18 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag    "homeland/wiki/application", media: "all" %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "homeland/wiki/application" %>
+<% end %>
+
+<% content_for :main do %>
+  <script type="text/javascript">
+    $('.navbar-nav .nav-plugin-wiki').addClass("active");
+  </script>
+  <div id="homeland-wiki">
+    <%= yield %>
+  </div>
+<% end %>
+
+<%= render template: "/layouts/application" %>

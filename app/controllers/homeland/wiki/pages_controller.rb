@@ -1,5 +1,5 @@
 module Homeland::Wiki
-  class PagesController < ::ApplicationController
+  class PagesController < Homeland::Wiki::ApplicationController
     require_module_enabled! :wiki
     authorize_resource :page
     before_action :set_page, only: [:show, :edit, :update, :destroy, :comments]
