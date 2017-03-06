@@ -7,8 +7,8 @@ require "homeland/wiki/version"
 Gem::Specification.new do |s|
   s.name        = "homeland-wiki"
   s.version     = Homeland::Wiki::VERSION
-  s.authors     = ["Griffin Qiu"]
-  s.email       = ["griffinqiu@gmail.com"]
+  s.authors     = ["Griffin Qiu", "Jason Lee"]
+  s.email       = ["griffinqiu@gmail.com", "huacnlee@gmail.com"]
   s.homepage    = "https://github.com/ruby-china/homeland-wiki"
   s.summary     = Homeland::Wiki::DESCRIPTION
   s.description = Homeland::Wiki::DESCRIPTION
