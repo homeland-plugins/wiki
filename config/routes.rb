@@ -10,7 +10,7 @@ Homeland::Wiki::Engine.routes.draw do
   end
 
   namespace :admin do
-    resources :pages do
+    resources :pages, path: 'wiki' do
       resources :versions, controller: :page_versions do
         member do
           post :revert

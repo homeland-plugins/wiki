@@ -6,24 +6,7 @@ module Homeland::Wiki::Admin
       @pages = Page.unscoped.order(id: :desc).page(params[:page])
     end
 
-    def show
-    end
-
-    def new
-      @page = Page.new
-    end
-
     def edit
-    end
-
-    def create
-      @page = Page.new(params[:page].permit!)
-
-      if @page.save
-        redirect_to(admin_pages_path, notice: 'Page was successfully created.')
-      else
-        render action: 'new'
-      end
     end
 
     def update
@@ -41,7 +24,11 @@ module Homeland::Wiki::Admin
     end
 
     def destroy
-      @page.destroy
+      if @page.deleted_at.present?
+        @page.delete
+      else
+        @page.destroy
+      end
 
       redirect_to(admin_pages_path)
     end

@@ -16,8 +16,10 @@ class CreatePages < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
     add_index :pages, :slug, unique: true
   end
+
   def down
     drop_table :pages, if_exists: true
   end
