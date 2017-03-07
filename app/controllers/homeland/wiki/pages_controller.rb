@@ -1,7 +1,6 @@
 module Homeland::Wiki
   class PagesController < Homeland::Wiki::ApplicationController
     require_module_enabled! :wiki
-    authorize_resource :page
     before_action :set_page, only: [:show, :edit, :update, :destroy, :comments]
 
     etag { Setting.wiki_sidebar_html }
@@ -35,6 +34,8 @@ module Homeland::Wiki
     end
 
     def new
+      authorize! :create, Page
+
       @page = Page.new
       @page.slug = params[:title]
       respond_to do |format|
@@ -44,9 +45,12 @@ module Homeland::Wiki
     end
 
     def edit
+      authorize! :edit, @page
     end
 
     def create
+      authorize! :create, Page
+
       @page = Page.new(page_params)
       @page.user_id = current_user.id
       @page.version_enable = true
@@ -59,6 +63,8 @@ module Homeland::Wiki
     end
 
     def update
+      authorize! :update, @page
+
       @page.version_enable = true
       @page.user_id = current_user.id
 

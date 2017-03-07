@@ -6,15 +6,21 @@ module Homeland::Wiki
 
     def initialize(u)
       @user = u
-      return roles_for_create_wiki if @user.present? && (@user.roles?(:admin) || @user.roles?(:wiki_editor))
-      roles_for_anonymous
+      if @user.blank?
+        roles_for_anonymous
+      elsif @user.roles?(:admin)
+        can :manage, Page
+      elsif @user.roles?(:wiki_editor)
+        roles_for_wiki_editor
+      else
+        roles_for_anonymous
+      end
     end
 
     protected
 
-    def roles_for_create_wiki
+    def roles_for_wiki_editor
       can :create, Page
-      can :edit, Page, locked: false
       can :update, Page, locked: false
     end
 
