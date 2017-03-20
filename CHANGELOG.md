@@ -1,3 +1,8 @@
+0.2.2
+-----
+
+- Fix migrations not load bug.
+
 0.2.1
 -----
 
