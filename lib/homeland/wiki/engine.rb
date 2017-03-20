@@ -21,6 +21,8 @@ module Homeland
           app.routes.prepend do
             mount Homeland::Wiki::Engine, at: '/'
           end
+
+          app.config.paths["db/migrate"].concat(config.paths["db/migrate"].expanded)
         end
       end
     end
