@@ -1,3 +1,8 @@
+0.3.0
+-----
+
+- Rename JS view from `PageView` -> `WikiView`, and init it on page load.
+
 0.2.2
 -----
 
