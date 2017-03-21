@@ -2,14 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 #
-window.PageView = Backbone.View.extend
+window.WikiView = Backbone.View.extend
   el: "body"
   events:
     "click .editor-toolbar .edit a": "toggleEditView"
     "click .editor-toolbar .preview a": "togglePreviewView"
 
   initialize: (opts) ->
-    @parentView = opts.parentView
+    @parentView = window._appView
     $("<div id='preview' class='markdown form-control'></div>").insertAfter( $('#page_body') )
     window._editor = new Editor()
 
@@ -30,3 +30,7 @@ window.PageView = Backbone.View.extend
       $('#preview').html(data)
       false
     false
+
+document.addEventListener 'turbolinks:load',  ->
+  if $('body').data('controller-name') in ['pages']
+    window._wikiView = new WikiView()
