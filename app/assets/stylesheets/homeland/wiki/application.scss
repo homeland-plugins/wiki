@@ -11,10 +11,11 @@
   }
 
   .page-detail {
-    .panel-heading {
+    .card-header {
       padding: 15px;
       h1 { font-size: 20px; color: #111; margin: 0; margin-bottom: 6px;}
     }
+
     .info {
       text-align:right;
       padding:10px;
@@ -24,6 +25,7 @@
       border-radius: 3px 3px 0 0;
       margin-bottom:20px;
     }
+
     .editors {
       h3 { font-size:14px; color:#999;}
       .media-object { display: inline; }

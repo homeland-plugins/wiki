@@ -5,29 +5,33 @@
 window.WikiView = Backbone.View.extend
   el: "body"
   events:
-    "click .editor-toolbar .edit a": "toggleEditView"
-    "click .editor-toolbar .preview a": "togglePreviewView"
+    "click .editor-toolbar .preview": "togglePreviewView"
 
   initialize: (opts) ->
     @parentView = window._appView
-    $("<div id='preview' class='markdown form-control'></div>").insertAfter( $('#page_body') )
+    $("<div id='preview' class='markdown form-control'></div>").insertAfter($("#page_body"))
+    $("#preview").hide()
     window._editor = new Editor()
 
-  toggleEditView: (e) ->
-    $(e.target).parent().addClass('active')
-    $('.preview a').parent().removeClass('active')
-    $('#preview').hide()
-    $('#page_body').show()
-    false
-
   togglePreviewView: (e) ->
-    $(e.target).parent().addClass('active')
-    $('.edit a').parent().removeClass('active')
-    $('#preview').html('Loading...')
-    $('#page_body').hide()
-    $('#preview').show()
-    $.post '/wiki/preview', {body: $('#page_body').val()}, (data)->
-      $('#preview').html(data)
+    textarea = $("#page_body")
+    preview_box = $("#preview")
+
+    if $(e.target).hasClass("active")
+      $(e.target).removeClass("active")
+      preview_box.hide()
+      textarea.show()
+    else
+      $(e.target).addClass("active")
+      preview_box.show()
+      preview_box.css("height", textarea.height())
+      textarea.hide()
+      this.preview(preview_box, textarea.val())
+    return false
+
+  preview: (preview_box, val) ->
+    $.post '/wiki/preview', { body: val }, (data)->
+      preview_box.html(data)
       false
     false
 

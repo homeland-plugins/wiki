@@ -1,13 +1,12 @@
 <% title_tag @page.title %>
 
 <div class="row">
-  <div class="hide-ios">
-    <%= render 'sidebar' %>
-  </div>
+  <%= render 'sidebar' %>
+
   <div class="col-md-9 page-detail">
-    <div class="panel panel-default">
+    <div class="card">
       <% if !@page.locked or admin? %>
-        <div class="panel-heading">
+        <div class="card-header">
           <h1><%= @page.title %></h1>
           <div class="infos">
             <%= link_to comments_page_path(@page.slug) do %>
@@ -22,13 +21,13 @@
 
       <% end %>
 
-      <div class="panel-body markdown markdown-toc">
+      <div class="card-body markdown markdown-toc">
         <article>
           <%= @page.body_html %>
         </article>
       </div>
 
-      <div class="editors panel-footer clearfix">
+      <div class="card-footer editors clearfix">
         <div class="heading">
           <%= t("pages.wiki_page_contributors")%>
           <span class="pull-right"><%= social_share_button_tag h("#{@page.title} via: @#{Setting.twitter_id} ") %></span>

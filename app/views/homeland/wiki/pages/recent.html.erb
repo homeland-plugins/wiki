@@ -1,13 +1,12 @@
 <% title_tag t('pages.wiki_index') %>
 
 <div class="row">
-  <div class="hide-ios">
-    <%= render 'sidebar' %>
-  </div>
+  <%= render 'sidebar' %>
+
   <div class="col-md-9">
-    <div class="panel panel-default">
-      <div class="panel-heading hide-ios"><%= t('pages.wiki_index') %></div>
-      <div class="panel-body">
+    <div class="card">
+      <div class="card-header hide-ios"><%= t('pages.wiki_index') %></div>
+      <div class="card-body">
         <ul>
           <% @pages.each do |item| %>
             <li><%= page_title_tag(item) %></li>

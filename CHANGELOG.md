@@ -1,3 +1,9 @@
+0.4.0
+------
+
+- Remove simple_form;
+- Upgrade to Bootstrap V4;
+
 0.3.0
 -----
 

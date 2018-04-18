@@ -2,10 +2,11 @@
 
 <div class="row">
   <%= render 'sidebar' %>
+
   <% if !turbolinks_app? %>
     <div class="col-md-9">
-      <div class="panel panel-default">
-        <div class="panel-body">
+      <div class="card">
+        <div class="card-body">
           <%= raw Setting.wiki_index_html %>
         </div>
       </div>

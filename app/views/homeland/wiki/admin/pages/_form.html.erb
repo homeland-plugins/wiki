@@ -1,12 +1,29 @@
-<%= simple_form_for([:admin,@page]) do |f| %>
+<%= form_for [:admin, @page] do |f| %>
   <%= render "shared/error_messages", target: @page %>
-  <fieldset>
-    <legend>Wiki页面编辑</legend>
-    <%= f.input :locked, as: :boolean, hint: "锁定后，前台非管理员将无法修改。" %>
-    <%= f.input :slug %>
-    <%= f.input :title, input_html: { class: "xxlarge" } %>
-    <%= f.input :body, as: :text, input_html: { class: "span8", rows: "30"} %>
-    <div class="form-actions">
-      <%= f.submit t("common.save"), class: "btn btn-primary", 'data-disable-with' => t("common.saving") %>
-    </div>
+
+  <div class="form-group form-check">
+    <%= f.check_box :locked, class: "form-check-input" %>
+    <%= f.label :locked, class: "form-check-label" %>
+    <div class="form-text">锁定后，前台非管理员将无法修改。</div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :slug %>
+    <%= f.text_field :slug, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, class: "form-control", rows: 30 %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit t("common.save"), class: "btn btn-primary", 'data-disable-with' => t("common.saving") %>
+    <%= link_to "取消", admin_pages_path, class: "btn btn-outline-primary" %>
+  </div>
 <% end %>
