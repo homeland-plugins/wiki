@@ -3,13 +3,11 @@
 <div class="row">
   <%= render 'sidebar' %>
 
-  <% if !turbolinks_app? %>
-    <div class="col-md-9">
-      <div class="card">
-        <div class="card-body">
-          <%= raw Setting.wiki_index_html %>
-        </div>
+  <div class="col-md-9 hide-ios">
+    <div class="card">
+      <div class="card-body">
+        <%= raw Setting.wiki_index_html %>
       </div>
     </div>
-  <% end %>
+  </div>
 </div>
