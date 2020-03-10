@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Page < ApplicationRecord
   include MarkdownBody
   include Searchable
@@ -19,20 +21,18 @@ class Page < ApplicationRecord
 
   before_save :append_editor
   def append_editor
-    unless editor_ids.include?(user_id.to_i)
-      editor_ids << user_id.to_i
-    end
+    editor_ids << user_id.to_i unless editor_ids.include?(user_id.to_i)
   end
 
   # 记录更新版本
   after_save :create_version
   def create_version
     # 只有当 version_enable 为 true 的时候才记录版本
-    # 以免后台，以及其他的一些 update 时被误调用
     return true unless version_enable
+
     # 只有 body, title, slug 更改了才更新版本
-    if self.body_changed? || self.title_changed? || self.slug_changed?
-      update_column(:version, self.version + 1)
+    if saved_change_to_body? || saved_change_to_title? || saved_change_to_slug?
+      increment(:version, 1)
       PageVersion.create(user_id: user_id,
                          page_id: id,
                          desc: change_desc || '',
@@ -44,7 +44,7 @@ class Page < ApplicationRecord
   end
 
   def as_indexed_json(_options = {})
-    as_json(only: [:slug, :title, :body])
+    as_json(only: %i[slug title body])
   end
 
   def indexed_changed?
@@ -59,6 +59,7 @@ class Page < ApplicationRecord
   def revert_version(version)
     page_version = PageVersion.where(page_id: id, version: version).first
     return false if page_version.blank?
+
     update(body: page_version.body,
            title: page_version.title,
            slug: page_version.slug)
