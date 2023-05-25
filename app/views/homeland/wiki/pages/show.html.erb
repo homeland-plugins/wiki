@@ -7,15 +7,17 @@
     <div class="card">
       <% if !@page.locked or admin? %>
         <div class="card-header">
-          <h1><%= @page.title %></h1>
-          <div class="infos">
+          <div class="flex items-center justify-between">
+            <h1><%= @page.title %></h1>
+            <div class="opts hide-ios">
+              <%= link_to(icon_tag('pencil'), edit_page_path(@page)) if can? :edit, @page %>
+            </div>
+          </div>
+          <div class="infos text-sm">
             <%= link_to comments_page_path(@page.slug) do %>
               <%= @page.comments_count %> 条评论
             <% end %>,
-            <%= @page.version %> 次修正，<%= @page.hits %> 次阅读， <%= t("common.last_modified_at")%> <%= timeago(@page.updated_at) %>
-            <span class="pull-right opts hide-ios">
-              <%= link_to(icon_tag('pencil'), edit_page_path(@page)) if can? :edit, @page %>
-            </span>
+            <%= @page.version %> 次修正，<%= @page.hits %> 次阅读，<%= t("common.last_modified_at")%> <%= timeago(@page.updated_at) %>
           </div>
         </div>
 
@@ -27,10 +29,10 @@
         </article>
       </div>
 
-      <div class="card-footer editors clearfix">
-        <div class="heading">
-          <%= t("pages.wiki_page_contributors")%>
-          <span class="pull-right"><%= social_share_button_tag h("#{@page.title} via: @#{Setting.twitter_id} ") %></span>
+      <div class="card-footer editors space-y-4">
+        <div class="heading flex items-center justify-between">
+          <div><%= t("pages.wiki_page_contributors")%></div>
+          <div><%= social_share_button_tag h("#{@page.title} via: @#{Setting.twitter_id} ") %></div>
         </div>
         <div class="avatars">
           <% @page.editors.each do |item| %>
@@ -38,7 +40,7 @@
           <% end %>
         </div>
         <div class="buttons hide-ios">
-          <%= link_to "发表评论", comments_page_path(@page.slug, anchor: "new_comment"), class: "btn btn-success" %>
+          <%= link_to "发表评论", comments_page_path(@page.slug, anchor: "new_comment"), class: "btn btn-secondary" %>
         </div>
       </div>
     </div>
