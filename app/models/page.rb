@@ -68,6 +68,6 @@ class Page < ApplicationRecord
   end
 
   def self.find_by_slug(slug)
-    fetch_by_uniq_keys(slug: slug)
+    find_by(slug: slug)
   end
 end
